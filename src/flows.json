@@ -1,0 +1,860 @@
+[
+    {
+        "id": "d9a5b28f8d3e6302",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "b4249268a2639bc2",
+        "type": "tab",
+        "label": "Flow 2",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "0dfea18073a4cf51",
+        "type": "influxdb",
+        "hostname": "127.0.0.1",
+        "port": "8086",
+        "protocol": "http",
+        "database": "database",
+        "name": "",
+        "usetls": false,
+        "tls": "",
+        "influxdbVersion": "2.0",
+        "url": "http://localhost:8086",
+        "rejectUnauthorized": true
+    },
+    {
+        "id": "43f8489d6f35c545",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "localhost",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "efa18a5fe33ee808",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "localhost",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "1e721c27b0f3ddae",
+        "type": "http in",
+        "z": "d9a5b28f8d3e6302",
+        "name": "",
+        "url": "/app/light/:light/:timestamp",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 310,
+        "y": 220,
+        "wires": [
+            [
+                "0a0417dc914e519d",
+                "f023b130eea4de3c"
+            ]
+        ]
+    },
+    {
+        "id": "f023b130eea4de3c",
+        "type": "debug",
+        "z": "d9a5b28f8d3e6302",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 760,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "6b8dc4338628bc3f",
+        "type": "influxdb out",
+        "z": "d9a5b28f8d3e6302",
+        "influxdb": "0dfea18073a4cf51",
+        "name": "unnom",
+        "measurement": "positiongps",
+        "precision": "",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ms",
+        "retentionPolicyV18Flux": "",
+        "org": "org",
+        "bucket": "map",
+        "x": 790,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "0a0417dc914e519d",
+        "type": "function",
+        "z": "d9a5b28f8d3e6302",
+        "name": "function 1",
+        "func": "msg.payload = {\n    light: Number(msg.req.params.light),\n    time: new Date(Number(msg.req.params.timestamp))\n};\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 420,
+        "y": 320,
+        "wires": [
+            [
+                "6b8dc4338628bc3f"
+            ]
+        ]
+    },
+    {
+        "id": "08bca49dd674d56a",
+        "type": "http in",
+        "z": "d9a5b28f8d3e6302",
+        "name": "",
+        "url": "/app/pos/:latitude/:longitude/:timestamp",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 310,
+        "y": 540,
+        "wires": [
+            [
+                "3ab3947f5311d9e6",
+                "34211cfbbfd76138",
+                "cf46388b2d0cfe35",
+                "369c123085825ed7"
+            ]
+        ]
+    },
+    {
+        "id": "3ab3947f5311d9e6",
+        "type": "debug",
+        "z": "d9a5b28f8d3e6302",
+        "name": "debug 4",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1040,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "b96340b79a3c0fb4",
+        "type": "influxdb out",
+        "z": "d9a5b28f8d3e6302",
+        "influxdb": "0dfea18073a4cf51",
+        "name": "unnom",
+        "measurement": "positiongps",
+        "precision": "",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ms",
+        "retentionPolicyV18Flux": "",
+        "org": "org",
+        "bucket": "map",
+        "x": 790,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "34211cfbbfd76138",
+        "type": "function",
+        "z": "d9a5b28f8d3e6302",
+        "name": "function 3",
+        "func": "\nmsg.payload = {\n    latitude: Number(msg.req.params.latitude),\n    time: new Date(Number(msg.req.params.timestamp))\n};\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 600,
+        "y": 600,
+        "wires": [
+            [
+                "b96340b79a3c0fb4"
+            ]
+        ]
+    },
+    {
+        "id": "cf46388b2d0cfe35",
+        "type": "function",
+        "z": "d9a5b28f8d3e6302",
+        "name": "function 4",
+        "func": "\nmsg.payload = {\n    longitude: Number(msg.req.params.longitude),\n    time: new Date(Number(msg.req.params.timestamp))\n};\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 600,
+        "y": 680,
+        "wires": [
+            [
+                "b96340b79a3c0fb4"
+            ]
+        ]
+    },
+    {
+        "id": "369c123085825ed7",
+        "type": "function",
+        "z": "d9a5b28f8d3e6302",
+        "name": "function 6",
+        "func": "\nmsg.payload = {\n    latitude: Number(msg.req.params.latitude),\n    longitude: Number(msg.req.params.longitude),\n    time: new Date(Number(msg.req.params.timestamp))\n};\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 580,
+        "y": 760,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "81fa5e7827341a96",
+        "type": "http in",
+        "z": "d9a5b28f8d3e6302",
+        "name": "",
+        "url": "/app/podo/:podo/:timestamp",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 270,
+        "y": 860,
+        "wires": [
+            [
+                "9bd2770f927afda1",
+                "edab66bb3c5ac538"
+            ]
+        ]
+    },
+    {
+        "id": "edab66bb3c5ac538",
+        "type": "debug",
+        "z": "d9a5b28f8d3e6302",
+        "name": "debug 8",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 720,
+        "y": 860,
+        "wires": []
+    },
+    {
+        "id": "8b292ca2e58ff77c",
+        "type": "influxdb out",
+        "z": "d9a5b28f8d3e6302",
+        "influxdb": "0dfea18073a4cf51",
+        "name": "unnom",
+        "measurement": "positiongps",
+        "precision": "",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ms",
+        "retentionPolicyV18Flux": "",
+        "org": "org",
+        "bucket": "map",
+        "x": 750,
+        "y": 1100,
+        "wires": []
+    },
+    {
+        "id": "9bd2770f927afda1",
+        "type": "function",
+        "z": "d9a5b28f8d3e6302",
+        "name": "function 9",
+        "func": "msg.payload = {\n    podo: Number(msg.req.params.podo),\n    time: new Date(Number(msg.req.params.timestamp))\n};\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 960,
+        "wires": [
+            [
+                "8b292ca2e58ff77c"
+            ]
+        ]
+    },
+    {
+        "id": "5bd716bcf95947b5",
+        "type": "inject",
+        "z": "b4249268a2639bc2",
+        "name": "",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 170,
+        "y": 120,
+        "wires": [
+            [
+                "0a41337b69972d18"
+            ]
+        ]
+    },
+    {
+        "id": "0a41337b69972d18",
+        "type": "function",
+        "z": "b4249268a2639bc2",
+        "name": "function 2",
+        "func": "msg.query = `from(bucket:\"map\")\n|>range(start:-24h)\n|>filter(fn:(r) =>r._measurement==\"positiongps\" and r._field==\"latitude\")\n|>group()`;\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 400,
+        "y": 120,
+        "wires": [
+            [
+                "6b0861c941a986b8"
+            ]
+        ]
+    },
+    {
+        "id": "6b0861c941a986b8",
+        "type": "influxdb in",
+        "z": "b4249268a2639bc2",
+        "influxdb": "0dfea18073a4cf51",
+        "name": "",
+        "query": "",
+        "rawOutput": false,
+        "precision": "",
+        "retentionPolicy": "",
+        "org": "org",
+        "x": 670,
+        "y": 120,
+        "wires": [
+            [
+                "2838ed4b4cb1e397",
+                "e621736e4d264dd9"
+            ]
+        ]
+    },
+    {
+        "id": "2838ed4b4cb1e397",
+        "type": "debug",
+        "z": "b4249268a2639bc2",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 900,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "e621736e4d264dd9",
+        "type": "http response",
+        "z": "b4249268a2639bc2",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 830,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "ce9ec85e42027a81",
+        "type": "http in",
+        "z": "b4249268a2639bc2",
+        "name": "",
+        "url": "/app/data/latitude",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 140,
+        "y": 360,
+        "wires": [
+            [
+                "0a41337b69972d18"
+            ]
+        ]
+    },
+    {
+        "id": "d0ac4fc6190dd89e",
+        "type": "inject",
+        "z": "b4249268a2639bc2",
+        "name": "",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 210,
+        "y": 500,
+        "wires": [
+            [
+                "b248be09a2119ee5"
+            ]
+        ]
+    },
+    {
+        "id": "b248be09a2119ee5",
+        "type": "function",
+        "z": "b4249268a2639bc2",
+        "name": "function 5",
+        "func": "msg.query = `from(bucket:\"map\")\n|>range(start:-24h)\n|>filter(fn:(r) =>r._measurement==\"positiongps\" and r._field==\"longitude\")\n|>group()`;\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 500,
+        "wires": [
+            [
+                "5b8538febecbb3a0"
+            ]
+        ]
+    },
+    {
+        "id": "5b8538febecbb3a0",
+        "type": "influxdb in",
+        "z": "b4249268a2639bc2",
+        "influxdb": "0dfea18073a4cf51",
+        "name": "",
+        "query": "",
+        "rawOutput": false,
+        "precision": "",
+        "retentionPolicy": "",
+        "org": "org",
+        "x": 710,
+        "y": 500,
+        "wires": [
+            [
+                "a610fbeb4cae2bb0",
+                "c7957301514e5784"
+            ]
+        ]
+    },
+    {
+        "id": "a610fbeb4cae2bb0",
+        "type": "debug",
+        "z": "b4249268a2639bc2",
+        "name": "debug 5",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 940,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "c7957301514e5784",
+        "type": "http response",
+        "z": "b4249268a2639bc2",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 870,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "9c567466518bdf2d",
+        "type": "http in",
+        "z": "b4249268a2639bc2",
+        "name": "",
+        "url": "/app/data/longitude",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 180,
+        "y": 740,
+        "wires": [
+            [
+                "b248be09a2119ee5"
+            ]
+        ]
+    },
+    {
+        "id": "b5a712102c680678",
+        "type": "inject",
+        "z": "b4249268a2639bc2",
+        "name": "",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 130,
+        "y": 820,
+        "wires": [
+            [
+                "db6ff998b37fc6e4"
+            ]
+        ]
+    },
+    {
+        "id": "db6ff998b37fc6e4",
+        "type": "function",
+        "z": "b4249268a2639bc2",
+        "name": "function 7",
+        "func": "msg.query = `from(bucket:\"map\")\n|>range(start:-24h)\n|>filter(fn:(r) =>r._measurement==\"positiongps\")\n|>group()`;\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 820,
+        "wires": [
+            [
+                "102a5fa891780be5"
+            ]
+        ]
+    },
+    {
+        "id": "102a5fa891780be5",
+        "type": "influxdb in",
+        "z": "b4249268a2639bc2",
+        "influxdb": "0dfea18073a4cf51",
+        "name": "",
+        "query": "",
+        "rawOutput": false,
+        "precision": "",
+        "retentionPolicy": "",
+        "org": "org",
+        "x": 630,
+        "y": 820,
+        "wires": [
+            [
+                "978305d14336d804",
+                "c0d784dac233d587"
+            ]
+        ]
+    },
+    {
+        "id": "978305d14336d804",
+        "type": "debug",
+        "z": "b4249268a2639bc2",
+        "name": "debug 6",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 860,
+        "y": 840,
+        "wires": []
+    },
+    {
+        "id": "c0d784dac233d587",
+        "type": "http response",
+        "z": "b4249268a2639bc2",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 790,
+        "y": 980,
+        "wires": []
+    },
+    {
+        "id": "6fceb62aaaedec73",
+        "type": "http in",
+        "z": "b4249268a2639bc2",
+        "name": "",
+        "url": "/app/data/",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 80,
+        "y": 1060,
+        "wires": [
+            [
+                "db6ff998b37fc6e4"
+            ]
+        ]
+    },
+    {
+        "id": "c6083d337f001322",
+        "type": "inject",
+        "z": "b4249268a2639bc2",
+        "name": "",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 170,
+        "y": 1180,
+        "wires": [
+            [
+                "3efdd52d50946523"
+            ]
+        ]
+    },
+    {
+        "id": "3efdd52d50946523",
+        "type": "function",
+        "z": "b4249268a2639bc2",
+        "name": "function 8",
+        "func": "msg.query = `from(bucket:\"map\")\n|>range(start:-24h)\n|>filter(fn:(r) =>r._measurement==\"positiongps\" and r._field==\"light\")\n|>group()`;\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 400,
+        "y": 1180,
+        "wires": [
+            [
+                "a2d64984c114d25e"
+            ]
+        ]
+    },
+    {
+        "id": "a2d64984c114d25e",
+        "type": "influxdb in",
+        "z": "b4249268a2639bc2",
+        "influxdb": "0dfea18073a4cf51",
+        "name": "",
+        "query": "",
+        "rawOutput": false,
+        "precision": "",
+        "retentionPolicy": "",
+        "org": "org",
+        "x": 670,
+        "y": 1180,
+        "wires": [
+            [
+                "521f5118166cdda1",
+                "87f607ec452b0cdd"
+            ]
+        ]
+    },
+    {
+        "id": "521f5118166cdda1",
+        "type": "debug",
+        "z": "b4249268a2639bc2",
+        "name": "debug 7",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 900,
+        "y": 1200,
+        "wires": []
+    },
+    {
+        "id": "87f607ec452b0cdd",
+        "type": "http response",
+        "z": "b4249268a2639bc2",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 830,
+        "y": 1340,
+        "wires": []
+    },
+    {
+        "id": "6159765d0437e275",
+        "type": "http in",
+        "z": "b4249268a2639bc2",
+        "name": "",
+        "url": "/app/data/light",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 130,
+        "y": 1420,
+        "wires": [
+            [
+                "3efdd52d50946523"
+            ]
+        ]
+    },
+    {
+        "id": "ba73abb690db081b",
+        "type": "inject",
+        "z": "b4249268a2639bc2",
+        "name": "",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 150,
+        "y": 1500,
+        "wires": [
+            [
+                "2410eeed5cdfec83"
+            ]
+        ]
+    },
+    {
+        "id": "2410eeed5cdfec83",
+        "type": "function",
+        "z": "b4249268a2639bc2",
+        "name": "function 10",
+        "func": "msg.query = `from(bucket:\"map\")\n|>range(start:-24h)\n|>filter(fn:(r) =>r._measurement==\"positiongps\" and r._field==\"podo\")\n|>group()`;\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 1500,
+        "wires": [
+            [
+                "7c1d685beb70ec6e"
+            ]
+        ]
+    },
+    {
+        "id": "7c1d685beb70ec6e",
+        "type": "influxdb in",
+        "z": "b4249268a2639bc2",
+        "influxdb": "0dfea18073a4cf51",
+        "name": "",
+        "query": "",
+        "rawOutput": false,
+        "precision": "",
+        "retentionPolicy": "",
+        "org": "org",
+        "x": 650,
+        "y": 1500,
+        "wires": [
+            [
+                "2912f9e169b60664",
+                "9617767ed2891fec"
+            ]
+        ]
+    },
+    {
+        "id": "2912f9e169b60664",
+        "type": "debug",
+        "z": "b4249268a2639bc2",
+        "name": "debug 9",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 880,
+        "y": 1520,
+        "wires": []
+    },
+    {
+        "id": "9617767ed2891fec",
+        "type": "http response",
+        "z": "b4249268a2639bc2",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 810,
+        "y": 1660,
+        "wires": []
+    },
+    {
+        "id": "40d1eb3458b4b321",
+        "type": "http in",
+        "z": "b4249268a2639bc2",
+        "name": "",
+        "url": "/app/data/podo",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 110,
+        "y": 1740,
+        "wires": [
+            [
+                "2410eeed5cdfec83"
+            ]
+        ]
+    }
+]
