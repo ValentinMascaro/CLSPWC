@@ -1,0 +1,37 @@
+const http = require('http');
+
+function findAvailablePort(startingPort, callback) {
+  const server = http.createServer();
+  server.listen(startingPort, () => {
+    const port = server.address().port;
+    server.close(() => {
+      callback(port);
+    });
+  });
+  server.on('error', err => {
+    findAvailablePort(startingPort + 1, callback);
+  });
+}
+
+findAvailablePort(3000, port => {
+  const server = http.createServer((req, res) => {
+    if (req.method === 'POST') {
+      let body = '';
+      req.on('data', chunk => {
+        body += chunk.toString();
+      });
+      req.on('end', () => {
+        console.log('Request body:', body);
+        res.writeHead(200, { 'Content-Type': 'text/plain' });
+        res.end('OK\n');
+      });
+    } else {
+      res.writeHead(200, { 'Content-Type': 'text/plain' });
+      res.end('Send a POST request to get an "OK" response\n');
+    }
+  });
+
+  server.listen(port, () => {
+    console.log(`Server running at http://localhost:${port}/`);
+  });
+});
